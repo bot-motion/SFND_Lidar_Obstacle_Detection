@@ -84,11 +84,42 @@ struct KdTree
 		insertNode(root, point, id, 0);
 	}
 
+
+	std::vector<int> searchNode(Node *&node, std::vector<float> target, float distanceTol)
+	{
+		std::vector<int> ids, idsLeft, idsRight;
+
+		std::cout << "Current node (" << node->point[0] << ", " << node->point[1] << ") - target (" << target[0] << ", " << target[1] << ") pm " << distanceTol << std::endl;
+
+		if ( ((target[0]-distanceTol) < node->point[0]) && (node->point[0] < (target[0]+distanceTol)) &&
+		     ((target[1]-distanceTol) < node->point[1]) && (node->point[1] < (target[1]+distanceTol)) )
+		{
+			if (sqrt(pow(node->point[0] - target[0], 2) + pow(node->point[1] - target[1], 2)) < distanceTol)
+			{
+				ids.push_back(node->id);
+			}
+		}
+
+		if (node->left != NULL) 
+		{
+			idsLeft = searchNode(node->left, target, distanceTol);
+			ids.insert(ids.begin(), idsLeft.begin(), idsLeft.end());
+		}
+		
+		if (node->right != NULL)
+		{
+			idsRight = searchNode(node->right, target, distanceTol);
+			ids.insert(ids.begin(), idsRight.begin(), idsRight.end());
+		}
+
+		return ids;
+	}
+
+
 	// return a list of point ids in the tree that are within distance of target
 	std::vector<int> search(std::vector<float> target, float distanceTol)
 	{
-		std::vector<int> ids;
-		return ids;
+		return searchNode(root, target, distanceTol);
 	}
 	
 
