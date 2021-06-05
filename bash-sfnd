@@ -1,0 +1,1 @@
+docker run --hostname sfnd$1 --name sfnd$1 --rm -it --privileged -v $PWD:/module  sfnd:1.0 /bin/bash
