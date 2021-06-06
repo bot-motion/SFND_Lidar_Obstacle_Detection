@@ -75,13 +75,88 @@ void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Bo
 
 }
 
-std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
+
+
+bool isProcessed(std::vector<float> p)
+{
+	return p.size() == 3;
+}
+
+void printClusters(std::vector<std::vector<int>> clusters)
+{
+	for (int clusterNum = 0; clusterNum < clusters.size(); clusterNum++)
+	{
+		std::vector<int> c = clusters.at(clusterNum);
+		for (int idx : c)
+			std::cout << "Cluster # " << clusterNum << " contains point idx " << idx << std::endl;
+	}
+}
+
+
+std::vector<int> proximity(int idx, std::vector<std::vector<float>>& points, std::vector<int> cluster, KdTree* tree, float distanceTol)
+{
+/*	 Proximity(point,cluster):
+		mark point as processed
+		add point to cluster
+		nearby points = tree(point)
+		Iterate through each nearby point
+			If point has not been processed
+				Proximity(cluster)
+ */
+
+	points[idx].push_back(1.0); // mark point as processed
+	cluster.push_back(idx); 	// add point to cluster
+	std::vector<int> nearbyPoints = tree->search(points[idx], distanceTol);  // returns a vector of point IDs
+
+	for (int id : nearbyPoints)
+	{
+		if (!isProcessed(points[id]))
+		{
+			cluster = proximity(id, points, cluster, tree, distanceTol);
+		}
+
+	}
+
+	return cluster;
+}
+
+
+std::vector<std::vector<int>> euclideanCluster(std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
 {
 
-	// TODO: Fill out this function to return list of indices for each cluster
+	/*
+	EuclideanCluster():
+		list of clusters 
+		Iterate through each point
+			If point has not been processed
+				Create cluster
+				Proximity(point, cluster)
+				cluster add clusters
+		return clusters */
 
 	std::vector<std::vector<int>> clusters;
  
+	// notice that due to the initialization of the points in main() the point ID is the position in the points vector.
+	// the data structures here need some serious improvement, but for now we'll exploit the above fact.
+
+	for (int id = 0; id < points.size(); id++)
+	{
+		if (!isProcessed(points[id]))
+		{
+			std::vector<int> cluster;
+			cluster = proximity(id, points, cluster, tree, distanceTol);
+
+			clusters.push_back(cluster);
+ 		}
+	}
+
+	for (std::vector<float> p : points)
+	{
+		std::cout << p[0] << ", " << p[1] << ", " << p[2] << std::endl;
+	}
+
+	printClusters(clusters);
+
 	return clusters;
 
 }
@@ -107,7 +182,9 @@ int main ()
 	KdTree* tree = new KdTree;
   
     for (int i=0; i<points.size(); i++) 
+	{
     	tree->insert(points[i],i); 
+	}
 
   	int it = 0;
   	render2DTree(tree->root,viewer,window, it);
