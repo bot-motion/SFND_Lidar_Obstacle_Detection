@@ -24,10 +24,8 @@
 #include "cluster.h"
 
 
-bool same(pcl::PointXYZ p, pcl::PointXYZ q)
-{
-	return (p.x == q.x && p.y == q.y && p.z == q.z);
-}
+
+bool same(pcl::PointXYZ p, pcl::PointXYZ q);
 
 template<typename PointT>
 class ProcessPointClouds {

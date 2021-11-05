@@ -3,6 +3,11 @@
 #include "processPointClouds.h"
 
 
+bool same(pcl::PointXYZ p, pcl::PointXYZ q)
+{
+	return (p.x == q.x && p.y == q.y && p.z == q.z);
+}
+
 //constructor:
 template<typename PointT>
 ProcessPointClouds<PointT>::ProcessPointClouds() {}
