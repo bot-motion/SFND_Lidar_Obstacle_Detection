@@ -21,8 +21,7 @@ struct Node
 	Node* left;
 	Node* right;
 
-	Node(struct Point p, int setId)
-	:	point(p), id(setId), left(NULL), right(NULL);
+	Node(struct Point p, int setId);
 
 	~Node();
 };
@@ -34,8 +33,7 @@ struct KdTree
 {
 	Node* root;
 
-	KdTree()
-	: root(NULL);
+	KdTree();
 
 	~KdTree();
 
