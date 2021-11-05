@@ -17,6 +17,7 @@
 #include <string>  
 #include <vector>
 #include <ctime>
+#include <unordered_set>
 #include <chrono>
 #include "render/box.h"
 #include "tree.h"

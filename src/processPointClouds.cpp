@@ -159,7 +159,7 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
 		{
 			pcl::PointXYZ p = cloud->at(pointIndex);
 			double distPointToPlane = abs(A * p.x + B * p.y + C * p.z + D)/sqrt(A*A + B*B + C*C);
-			if (distPointToPlane <= distanceTol) 
+			if (distPointToPlane <= distanceThreshold) 
 				currentInliersResult.insert(pointIndex);
 		}
 
@@ -256,9 +256,15 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
   
     for(int i = 0; i < cloud->points.size(); i++)
     {
-      std::vector<float> point = {cloud->points[i].x, cloud->points[i].y, cloud->points[i].z};
-      tree->insert(point, i); 
-      cloud2Vector.push_back(point);     
+      struct Point pt;
+      pt.coordinates[0] = cloud->points[i].x;
+      pt.coordinates[1] = cloud->points[i].y;
+      pt.coordinates[2] = cloud->points[i].z;
+      pt.processed = false;
+      pt.id = i;
+      
+      tree->insert(pt, i); 
+      cloud2Vector.push_back(pt);     
     }
 	
    	std::vector<std::vector<int>> results;
