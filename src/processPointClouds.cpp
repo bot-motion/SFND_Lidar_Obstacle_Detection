@@ -252,7 +252,7 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
    	std::vector<typename pcl::PointCloud<PointT>::Ptr> clusters;   	
   	KdTree* tree = new KdTree;
   
-  	std::vector<std::vector<float>> cloud2Vector;
+  	std::vector<struct Point> cloud2Vector;
   
     for(int i = 0; i < cloud->points.size(); i++)
     {
@@ -262,7 +262,7 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
       pt.coordinates[2] = cloud->points[i].z;
       pt.processed = false;
       pt.id = i;
-      
+
       tree->insert(pt, i); 
       cloud2Vector.push_back(pt);     
     }
