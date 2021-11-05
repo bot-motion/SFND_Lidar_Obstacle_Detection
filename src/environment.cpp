@@ -58,13 +58,13 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     pclProcessorPtr = new ProcessPointClouds<pcl::PointXYZ>();
 
     std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> segmentCloud 
-                    =  pclProcessorPtr->SegmentPlane(inputCloud, 100, 0.2);
+                    =  pclProcessorPtr->SegmentRansac(inputCloud, 100, 0.2);
     
     renderPointCloud(viewer,segmentCloud.first,"cloud_road",Color(1,0,0));
     renderPointCloud(viewer,segmentCloud.second,"cloud_obst",Color(0,1,0));
     
 
-    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> cloudClusters = pclProcessorPtr->Clustering(segmentCloud.second, 1.0, 3, 30);
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> cloudClusters = pclProcessorPtr->ClusteringEuclidean(segmentCloud.second, 1.0, 3, 30);
 
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0), Color(0,1,0), Color(0,0,1)};
@@ -97,13 +97,13 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer,  ProcessPointClou
 
     // Experiment with the ? values and find what works best
     //   float filterRes, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint)
-    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessorI->FilterCloud(inputCloud, 0.3f, Eigen::Vector4f(-10, -5, -2, 1), Eigen::Vector4f(30, 10, 1, 1));
+    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessorI->FilterCloud(inputCloud, 0.3f, Eigen::Vector4f(-10, -5, 0, 1), Eigen::Vector4f(10, 5, 1, 1));
     //renderPointCloud(viewer,filterCloud,"filterCloud");
 
     std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud 
                     =  pointProcessorI->SegmentPlane(filterCloud, 50, 0.3f);
     
-    renderPointCloud(viewer,segmentCloud.first,"cloud_obst",Color(1,0,0));
+    //renderPointCloud(viewer,segmentCloud.first,"cloud_obst",Color(1,0,0));
     renderPointCloud(viewer,segmentCloud.second,"cloud_plane",Color(0,1,0));
     
 
