@@ -22,6 +22,12 @@
 #include "tree.h"
 #include "cluster.h"
 
+
+bool same(pcl::PointXYZ p, pcl::PointXYZ q)
+{
+	return (p.x == q.x && p.y == q.y && p.z == q.z);
+}
+
 template<typename PointT>
 class ProcessPointClouds {
 public:
