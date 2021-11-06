@@ -98,8 +98,6 @@ struct KdTree
 	{
 		std::vector<int> ids, idsLeft, idsRight;
 
-		std::cout << "Current node (" << node->point.coordinates[0] << ", " << node->point.coordinates[1] << ") - target (" << target.coordinates[0] << ", " << target.coordinates[1] << ") pm " << distanceTol << std::endl;
-
 		if ( ((target.coordinates[0]-distanceTol) < node->point.coordinates[0]) && (node->point.coordinates[0] < (target.coordinates[0]+distanceTol)) &&
 		     ((target.coordinates[1]-distanceTol) < node->point.coordinates[1]) && (node->point.coordinates[1] < (target.coordinates[1]+distanceTol)) )
 		{

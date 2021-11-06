@@ -39,8 +39,3 @@ std::vector<std::vector<int>> euclideanCluster(std::vector<struct Point>& points
 
 }
 
-
-bool same(pcl::PointXYZ p, pcl::PointXYZ q)
-{
-	return (p.x == q.x && p.y == q.y && p.z == q.z);
-}
