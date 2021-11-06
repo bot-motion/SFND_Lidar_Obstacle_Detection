@@ -113,13 +113,13 @@ struct KdTree
 
 		if (target.coordinates[dim] - distanceTol < node->point.coordinates[dim]) 
 		{
-			idsLeft = searchNode(node->left, target, distanceTol);
+			idsLeft = searchNode(node->left, target, distanceTol, level+1);
 			ids.insert(ids.begin(), idsLeft.begin(), idsLeft.end());
 		}
 		
 		if (target.coordinates[dim] + distanceTol > node->point.coordinates[dim])
 		{
-			idsRight = searchNode(node->right, target, distanceTol);
+			idsRight = searchNode(node->right, target, distanceTol, level+1);
 			ids.insert(ids.begin(), idsRight.begin(), idsRight.end());
 		}
 
@@ -130,7 +130,7 @@ struct KdTree
 	// return a list of point ids in the tree that are within distance of target
 	std::vector<int> search(struct Point target, float distanceTol)
 	{
-		return searchNode(root, target, distanceTol);
+		return searchNode(root, target, distanceTol, 0);
 	}
 	
 
