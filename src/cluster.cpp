@@ -1,5 +1,6 @@
 #include <vector>
 #include <pcl/common/common.h>
+#include "tree.h"
 
 std::vector<int> proximity(int idx, std::vector<struct Point>& points, std::vector<int> cluster, KdTree* tree, float distanceTol)
 {
