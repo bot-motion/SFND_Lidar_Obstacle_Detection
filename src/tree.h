@@ -72,31 +72,19 @@ struct KdTree
 		}
 		else 
 		{
-			if ((level % 2) == 0)
+			int dim = level % point.coordinates.size();
+			if (node->point.coordinates[dim] > point.coordinates[dim])
 			{
-				if (node->point.coordinates[0] > point.coordinates[0])
-				{
-					insertNode(node->left, point, id, level + 1);
-				}
-				else
-				{
-					insertNode(node->right, point, id, level + 1);
-				}
+				insertNode(node->left, point, id, level + 1);
 			}
 			else
 			{
-				if (node->point.coordinates[1] > point.coordinates[1])
-				{
-					insertNode(node->left, point, id, level + 1);
-				}
-				else
-				{
-					insertNode(node->right, point, id, level + 1);
-				}
+				insertNode(node->right, point, id, level + 1);
 			}
-
 		}
 	}
+
+
 
 
 
@@ -106,7 +94,7 @@ struct KdTree
 	}
 
 
-	std::vector<int> searchNode(Node *&node, struct Point target, float distanceTol)
+	std::vector<int> searchNode(Node *&node, struct Point target, float distanceTol, int level)
 	{
 		std::vector<int> ids, idsLeft, idsRight;
 
@@ -121,13 +109,15 @@ struct KdTree
 			}
 		}
 
-		if (node->left != NULL) 
+		dim = level % target.coordinates.size();
+
+		if (target.coordinates[dim] - distanceTol < node->point.coordinates[dim]) 
 		{
 			idsLeft = searchNode(node->left, target, distanceTol);
 			ids.insert(ids.begin(), idsLeft.begin(), idsLeft.end());
 		}
 		
-		if (node->right != NULL)
+		if (target.coordinates[dim] + distanceTol > node->point.coordinates[dim])
 		{
 			idsRight = searchNode(node->right, target, distanceTol);
 			ids.insert(ids.begin(), idsRight.begin(), idsRight.end());

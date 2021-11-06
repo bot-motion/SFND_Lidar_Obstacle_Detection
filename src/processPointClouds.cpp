@@ -143,12 +143,17 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
 	{
 
 		// Randomly sample three points and fit plane
-		while (same(p1, p2) || same(p1,p3) || same(p2,p3)) 
-		{
-			p1 = cloud->points[rand() % maxIndex];
-			p2 = cloud->points[rand() % maxIndex];
-			p3 = cloud->points[rand() % maxIndex];
-		}
+        std::unordered_set<int> indices;
+        while (indices.size() < 3) 
+        {
+            indices.insert(rand() % maxIndex);
+        }
+        
+        auto itr = indices.begin();
+        p1 = cloud->points[*itr++];
+        p2 = cloud->points[*itr++];
+        p3 = cloud->points[*itr];
+
 
 		double A = (p2.y - p1.y)*(p3.z - p1.z) - (p2.z - p1.z)*(p3.y - p1.y); // (y2−y1)(z3−z1)−(z2−z1)(y3−y1),
 		double B = (p2.z - p1.z)*(p3.x - p1.x) - (p2.x - p1.x)*(p3.z - p1.z); //(z2−z1)(x3−x1)−(x2−x1)(z3−z1), 

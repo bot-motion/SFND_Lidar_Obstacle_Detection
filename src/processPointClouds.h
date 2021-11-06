@@ -25,7 +25,6 @@
 
 
 
-bool same(pcl::PointXYZ p, pcl::PointXYZ q);
 
 template<typename PointT>
 class ProcessPointClouds {
