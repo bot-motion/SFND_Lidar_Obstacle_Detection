@@ -128,11 +128,6 @@ template<typename PointT>
 std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::SegmentRansac(typename pcl::PointCloud<PointT>::Ptr cloud, int maxIterations, float distanceThreshold)
 {
 
-    bool same(pcl::PointXYZ p, pcl::PointXYZ q)
-    {
-	    return (p.x == q.x && p.y == q.y && p.z == q.z);
-    }
-
     auto startTime = std::chrono::steady_clock::now();
 	
 	std::unordered_set<int> inliersResult, currentInliersResult;
