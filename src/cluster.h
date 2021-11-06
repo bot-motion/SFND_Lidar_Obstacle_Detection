@@ -8,4 +8,6 @@ std::vector<int> proximity(int idx, std::vector<struct Point>& points, std::vect
 
 std::vector<std::vector<int>> euclideanCluster(std::vector<struct Point>& points, KdTree* tree, float distanceTol);
 
+bool same(pcl::PointXYZ p, pcl::PointXYZ q);
+
 #endif
