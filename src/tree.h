@@ -109,7 +109,7 @@ struct KdTree
 			}
 		}
 
-		dim = level % target.coordinates.size();
+		int dim = level % target.coordinates.size();
 
 		if (target.coordinates[dim] - distanceTol < node->point.coordinates[dim]) 
 		{
