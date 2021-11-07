@@ -99,14 +99,14 @@ struct KdTree
 		bool targetIsInCube =
 			((target.coordinates[0]-distanceTol) < node->point.coordinates[0]) && (node->point.coordinates[0] < (target.coordinates[0]+distanceTol)) &&
 		    ((target.coordinates[1]-distanceTol) < node->point.coordinates[1]) && (node->point.coordinates[1] < (target.coordinates[1]+distanceTol)) &&
-			((target.coordinates[2]-distanceTol) < node->point.coordinates[2]) && (node->point.coordinates[2] < (target.coordinates[2]+distanceTol))
+			((target.coordinates[2]-distanceTol) < node->point.coordinates[2]) && (node->point.coordinates[2] < (target.coordinates[2]+distanceTol));
 
 		if (targetIsInCube)
 		{
 			float distanceTargetToNode = 
 					sqrt(pow(node->point.coordinates[0] - target.coordinates[0], 2) 
 					   + pow(node->point.coordinates[1] - target.coordinates[1], 2)
-					   + pow(node->point.coordinates[2] - target.coordinates[2], 2))
+					   + pow(node->point.coordinates[2] - target.coordinates[2], 2));
 
 			if (distanceTargetToNode < distanceTol)
 			{
