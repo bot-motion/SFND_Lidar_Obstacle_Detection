@@ -265,9 +265,9 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
     for(int i = 0; i < cloud->points.size(); i++)
     {
         struct Point pt;
-        pt.push_back(cloud->points[i].x);
-        pt.push_back(cloud->points[i].y);
-        pt.push_back(cloud->points[i].z);
+        pt.coordinates.push_back(cloud->points[i].x);
+        pt.coordinates.push_back(cloud->points[i].y);
+        pt.coordinates.push_back(cloud->points[i].z);
         pt.processed = false;
         pt.id = i;
 
