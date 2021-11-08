@@ -181,7 +181,7 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
     }
   
     
-    // separate clouds
+    std::cout << "separating clouds ..." << std::endl;
     typename pcl::PointCloud<PointT>::Ptr planeCloud(new pcl::PointCloud<PointT>());
 	typename pcl::PointCloud<PointT>::Ptr obstacleCloud(new pcl::PointCloud<PointT>());
     
@@ -275,7 +275,9 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
     }
 	
    	std::vector<std::vector<int>> results;
+    std::cout << "custom clustering...";
   	results = euclideanCluster(cloud2Vector, tree, clusterTolerance);
+    std::cout << "done" << std::endl;
 
     for(auto indexResults : results)
     {
