@@ -133,8 +133,6 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
 	std::unordered_set<int> inliersResult, currentInliersResult;
 	srand(time(NULL));
 	
-	pcl::PointXYZ p1, p2, p3;
-
  	int maxIndex;
    	maxIndex = cloud->size(); 
    	srand(time(0));
@@ -150,9 +148,9 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
         }
         
         auto itr = indices.begin();
-        p1 = cloud->points[*itr++];
-        p2 = cloud->points[*itr++];
-        p3 = cloud->points[*itr];
+        auto p1 = cloud->points[*itr++];
+        auto p2 = cloud->points[*itr++];
+        auto p3 = cloud->points[*itr];
 
 
 		double A = (p2.y - p1.y)*(p3.z - p1.z) - (p2.z - p1.z)*(p3.y - p1.y); // (y2−y1)(z3−z1)−(z2−z1)(y3−y1),
@@ -166,7 +164,7 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
 		int pointIndex;
 		for (pointIndex = 0; pointIndex < maxIndex; pointIndex++)
 		{
-			pcl::PointXYZ p = cloud->at(pointIndex);
+			PointT p = cloud->at(pointIndex);
 			double distPointToPlane = abs(A * p.x + B * p.y + C * p.z + D)/sqrt(A*A + B*B + C*C);
 			if (distPointToPlane <= distanceThreshold) 
 				currentInliersResult.insert(pointIndex);
