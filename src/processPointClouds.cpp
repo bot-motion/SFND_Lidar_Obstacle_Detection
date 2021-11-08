@@ -261,6 +261,7 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
   
   	std::vector<struct Point> cloud2Vector;
   
+    std::cout << "tree insertion... " << std::endl;
     for(int i = 0; i < cloud->points.size(); i++)
     {
       struct Point pt;
