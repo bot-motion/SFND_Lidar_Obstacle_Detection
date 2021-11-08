@@ -116,13 +116,13 @@ struct KdTree
 
 		int dim = level % target.coordinates.size();
 
-		if (target.coordinates[dim] - distanceTol < node->point.coordinates[dim]) 
+		if ((target.coordinates[dim] - distanceTol < node->point.coordinates[dim]) && (node->left != NULL))
 		{
 			idsLeft = searchNode(node->left, target, distanceTol, level+1);
 			ids.insert(ids.begin(), idsLeft.begin(), idsLeft.end());
 		}
 		
-		if (target.coordinates[dim] + distanceTol > node->point.coordinates[dim])
+		if ((target.coordinates[dim] + distanceTol > node->point.coordinates[dim]) && (node->right != NULL))
 		{
 			idsRight = searchNode(node->right, target, distanceTol, level+1);
 			ids.insert(ids.begin(), idsRight.begin(), idsRight.end());

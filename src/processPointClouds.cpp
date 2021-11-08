@@ -264,15 +264,15 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
     std::cout << "tree insertion... " << std::endl;
     for(int i = 0; i < cloud->points.size(); i++)
     {
-      struct Point pt;
-      pt.coordinates[0] = cloud->points[i].x;
-      pt.coordinates[1] = cloud->points[i].y;
-      pt.coordinates[2] = cloud->points[i].z;
-      pt.processed = false;
-      pt.id = i;
+        struct Point pt;
+        pt.push_back(cloud->points[i].x);
+        pt.push_back(cloud->points[i].y);
+        pt.push_back(cloud->points[i].z);
+        pt.processed = false;
+        pt.id = i;
 
-      tree->insert(pt, i); 
-      cloud2Vector.push_back(pt);     
+        tree->insert(pt, i); 
+        cloud2Vector.push_back(pt);     
     }
 	
    	std::vector<std::vector<int>> results;

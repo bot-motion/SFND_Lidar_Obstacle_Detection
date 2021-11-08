@@ -27,7 +27,7 @@ std::vector<std::vector<int>> euclideanCluster(std::vector<struct Point>& points
  
 	for (int id = 0; id < points.size(); id++)
 	{
-		if (!points[id].processed)
+		if (!points.at(id).processed)
 		{
 			std::vector<int> cluster;
 			cluster = proximity(id, points, cluster, tree, distanceTol);
