@@ -130,7 +130,7 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
 
     auto startTime = std::chrono::steady_clock::now();
 	
-	std::unordered_set<int> inliersResult, currentInliersResult;
+	std::unordered_set<int> inliersResult;
 	srand(time(NULL));
 	
  	int maxIndex;
@@ -139,6 +139,7 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
 
 	for (int iteration = 0; iteration <= maxIterations; iteration++)
 	{
+        std::unordered_set<int> currentInliersResult;
 
 		// Randomly sample three points and fit plane
         std::unordered_set<int> indices;
