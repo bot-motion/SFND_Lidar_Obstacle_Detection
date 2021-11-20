@@ -99,7 +99,7 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer,  ProcessPointClou
     // Experiment with the ? values and find what works best
     //   float filterRes, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint)
     // values taken from https://knowledge.udacity.com/questions/628006#628012
-    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessorI->FilterCloud(inputCloud, 0.15f, Eigen::Vector4f(-20, -6, -5, 1), Eigen::Vector4f(30, 7, 5, 1));
+    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessorI->FilterCloud(inputCloud, 0.3f, Eigen::Vector4f(-20, -6, -5, 1), Eigen::Vector4f(30, 7, 5, 1));
     //renderPointCloud(viewer,filterCloud,"filterCloud");
 
     std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud 
