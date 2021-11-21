@@ -92,23 +92,15 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer,  ProcessPointClou
     // -----Open 3D viewer and display City Block     -----
     // ----------------------------------------------------
 
-    //ProcessPointClouds<pcl::PointXYZI>* pointProcessorI = new ProcessPointClouds<pcl::PointXYZI>();
-    //pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessorI->loadPcd("../src/sensors/data/pcd/data_1/0000000000.pcd");
-    //renderPointCloud(viewer,inputCloud,"inputCloud");
-
-    // Experiment with the ? values and find what works best
-    //   float filterRes, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint)
-    // values taken from https://knowledge.udacity.com/questions/628006#628012
-    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessorI->FilterCloud(inputCloud, 0.3f, Eigen::Vector4f(-20, -6, -5, 1), Eigen::Vector4f(30, 7, 5, 1));
-    //renderPointCloud(viewer,filterCloud,"filterCloud");
+    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessorI->FilterCloud(inputCloud, 0.22f, Eigen::Vector4f(-20, -6, -5, 1), Eigen::Vector4f(30, 7, 5, 1));
 
     std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud 
-                    =  pointProcessorI->SegmentRansac(filterCloud, 50, 0.3f);
+                    =  pointProcessorI->SegmentRansac(filterCloud, 100, 0.22f);
     
     //renderPointCloud(viewer,segmentCloud.first,"cloud_obst",Color(1,0,0));
     renderPointCloud(viewer,segmentCloud.second,"cloud_plane",Color(0,1,0));
     
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = pointProcessorI->ClusteringEuclidean(segmentCloud.first, 0.42f, 18, 1500);
+    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = pointProcessorI->ClusteringEuclidean(segmentCloud.first, 0.38f, 15, 1500);
 
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0), Color(0,1,0), Color(0,1,1)};
